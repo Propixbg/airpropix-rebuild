@@ -21,6 +21,7 @@ export type Content = {
   process: { label: string; title: string; steps: { t: string; d: string }[]; line: string };
   about: { label: string; title: string; text: string; points: string[] };
   contact: { title: string; text: string; phone: string; email: string };
+  social: { label: string; handle: string };
   form: { name: string; email: string; phone: string; company: string; optional: string; type: string; types: { photo: string; mapping: string; d3: string; other: string }; message: string; submit: string; sending: string; success: string; error: string; captcha: string; required: string; invalidEmail: string; notConfigured: string };
   footer: { tagline: string; rights: string; follow: string };
   problemWord: string;
@@ -174,6 +175,7 @@ const bg: Content = {
     points: ["Визуална експертиза", "Пространствени данни", "3D моделиране и производство", "Професионален процес"],
   },
   contact: { title: "Имате проект?", text: "Разкажете ни какво искате да заснемете, измерите или създадете.", phone: "+359 892 061 977", email: "contact@airpropix.com" },
+  social: { label: "Последвайте ни", handle: "@airpropix" },
   form: {
     name: "Име", email: "Имейл", phone: "Телефон", company: "Компания", optional: "по избор", type: "Тип проект",
     types: { photo: "Фото и видео", mapping: "Картографиране", d3: "3D", other: "Друго" },
@@ -335,6 +337,7 @@ const en: Content = {
     points: ["Visual expertise", "Spatial data", "3D modelling & manufacturing", "Professional workflow"],
   },
   contact: { title: "Have a project?", text: "Tell us what you want to capture, measure or create.", phone: "+359 892 061 977", email: "contact@airpropix.com" },
+  social: { label: "Follow us", handle: "@airpropix" },
   form: {
     name: "Name", email: "Email", phone: "Phone", company: "Company", optional: "optional", type: "Project type",
     types: { photo: "Photo & Video", mapping: "Mapping", d3: "3D", other: "Other" },
