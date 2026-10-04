@@ -13,6 +13,8 @@ declare global {
   }
 }
 
+type FKey = "name" | "email" | "phone" | "company" | "message" | "captcha";
+type Vals = { name: string; email: string; phone: string; company: string; projectType: string; message: string };
 type Status = "idle" | "sending" | "success" | "error";
 const fieldCls =
   "w-full rounded-md border border-input bg-card px-4 py-3 text-base outline-none transition-colors focus:border-foreground aria-[invalid=true]:border-destructive";
@@ -25,7 +27,7 @@ export function ContactForm({ t, lang }: { t: Content; lang: Lang }) {
   const [token, setToken] = useState("");
   const [status, setStatus] = useState<Status>("idle");
   const [msg, setMsg] = useState("");
-  const [errors, setErrors] = useState<Record<string, string>>({});
+  const [errors, setErrors] = useState<Partial<Record<FKey, string>>>({});
   const widgetRef = useRef<HTMLDivElement>(null);
   const widgetId = useRef<string | undefined>(undefined);
 
@@ -55,9 +57,9 @@ export function ContactForm({ t, lang }: { t: Content; lang: Lang }) {
   async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const fd = new FormData(e.currentTarget);
-    const v = Object.fromEntries(fd.entries()) as Record<string, string>;
-    const errs: Record<string, string> = {};
-    for (const k of ["name", "email", "phone", "message"]) if (!v[k]?.trim()) errs[k] = f.required;
+    const v = Object.fromEntries(fd.entries()) as unknown as Vals;
+    const errs: Partial<Record<FKey, string>> = {};
+    for (const k of ["name", "email", "phone", "message"] as const) if (!v[k]?.trim()) errs[k] = f.required;
     if (v.email && !/^\S+@\S+\.\S+$/.test(v.email)) errs.email = f.invalidEmail;
     if (cfg?.enabled && !token) errs.captcha = f.captcha;
     setErrors(errs);
@@ -98,7 +100,7 @@ export function ContactForm({ t, lang }: { t: Content; lang: Lang }) {
       </div>
     );
 
-  const field = (name: string, label: string, type = "text", required = true, auto?: string) => (
+  const field = (name: FKey, label: string, type = "text", required = true, auto?: string) => (
     <div>
       <label htmlFor={`f-${name}`} className="mb-1.5 block text-sm font-medium">
         {label}
