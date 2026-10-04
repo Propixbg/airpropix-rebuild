@@ -115,7 +115,7 @@ const bg: Content = {
       { title: "Изработка на резервни части", text: "Създавайте персонализирани резервни компоненти, когато оригиналните части не са налични, остарели или трудни за намиране.", img: "t3dReplacement", alt: "Нова 3D принтирана зъбна част до счупения оригинал" },
       { title: "Производство на малки серии", text: "Изработвайте функционални персонализирани компоненти в количества, съобразени с конкретния проект.", img: "t3dBatch", alt: "Малка серия от двадесет еднакви 3D принтирани корпуса" },
     ],
-    note: "За подходящи прототипи и малки серии адитивното производство може да намали или избегне нуждата от първоначални инструменти.",
+    note: "За подходящи прототипи, персонализирани части и малки количества адитивното производство може да осигури гъвкавост и да намали нуждата от значителна начална инвестиция в инструментална екипировка.",
   },
   evp: {
     label: "3D за събития и персонализация",
@@ -277,7 +277,7 @@ const en: Content = {
       { title: "Replacement parts", text: "Create custom replacement components when original parts are unavailable, obsolete or difficult to source.", img: "t3dReplacement", alt: "New 3D printed gear part beside the broken original" },
       { title: "Small-batch manufacturing", text: "Produce functional custom parts in quantities suited to the project.", img: "t3dBatch", alt: "Small batch of twenty identical 3D printed enclosures" },
     ],
-    note: "For suitable prototypes and small runs, additive manufacturing can reduce or avoid upfront tooling requirements.",
+    note: "For suitable prototypes, custom parts and small quantities, additive manufacturing can provide flexibility and reduce the need for significant upfront tooling.",
   },
   evp: {
     label: "3D for Events & Personalization",
