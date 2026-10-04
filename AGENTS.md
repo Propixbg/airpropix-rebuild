@@ -8,3 +8,6 @@
 > Commits you push to the connected branch sync back to Lovable and show up in
 > the editor, so keep the branch in a working state.
 <!-- LOVABLE:END -->
+
+- Site is bilingual via `/$lang` (bg|en); all copy lives in `src/lib/content.ts`, images in `src/lib/images.ts` — keeps languages in sync from one source.
+- Contact form posts to a server function that verifies Cloudflare Turnstile and sends via Resend using server-only env secrets — keeps keys out of the browser.
