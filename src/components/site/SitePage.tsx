@@ -171,7 +171,7 @@ export function SitePage({ lang }: { lang: Lang }) {
                   <div className="relative aspect-[4/3] overflow-hidden rounded-xl bg-muted">
                     <Pic k={p.img} alt={p.alt} className="img-zoom" />
                     <span className="absolute left-3 top-3 rounded bg-background/90 px-2 py-1 font-mono text-xs">
-                      {t.problemWord} {String(i + 1).padStart(2, "0")}
+                      {String(i + 1).padStart(2, "0")}
                     </span>
                   </div>
                   <h4 className="mt-5 font-display text-lg">{p.title}</h4>
@@ -208,7 +208,7 @@ export function SitePage({ lang }: { lang: Lang }) {
                   <div className="relative aspect-[4/3] overflow-hidden rounded-xl bg-muted">
                     <Pic k={p.img} alt={p.alt} className="img-zoom" />
                     <span className="absolute left-3 top-3 rounded bg-background/90 px-2 py-1 font-mono text-xs">
-                      {t.problemWord} {String(i + 1).padStart(2, "0")}
+                      {String(i + 1).padStart(2, "0")}
                     </span>
                   </div>
                   <h4 className="mt-5 font-display text-lg">{p.title}</h4>
