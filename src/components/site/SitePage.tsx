@@ -45,7 +45,6 @@ export function SitePage({ lang }: { lang: Lang }) {
       <main id="main">
         {/* HERO */}
         <section id="top" className="relative overflow-hidden pt-28 md:pt-32">
-          <div className="grid-lines pointer-events-none absolute inset-0 [mask-image:linear-gradient(to_bottom,black,transparent_70%)]" aria-hidden />
           <div className="container-x relative">
             <p className="eyebrow animate-rise">{t.hero.eyebrow}</p>
             <h1 className="animate-rise mt-6 max-w-5xl text-[2.4rem] leading-[1.02] sm:text-6xl lg:text-7xl">
