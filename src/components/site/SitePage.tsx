@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { ArrowRight, ArrowUpRight, Phone, Mail } from "lucide-react";
+import { ArrowRight, ArrowUpRight, Phone, Mail, Instagram, Facebook, Youtube } from "lucide-react";
 import logo from "@/assets/airpropix-logo.png.asset.json";
 import { content, type Lang } from "@/lib/content";
 import { img, type ImgKey } from "@/lib/images";
@@ -365,6 +365,29 @@ export function SitePage({ lang }: { lang: Lang }) {
                   </a>
                 </li>
               </ul>
+              <div className="mt-10 border-t pt-8">
+                <p className="eyebrow mb-4">{t.social.label}</p>
+                <div className="flex items-center gap-3">
+                  {[
+                    { href: "https://www.instagram.com/airpropix", label: "Instagram", Icon: Instagram },
+                    { href: "https://www.facebook.com/airpropix", label: "Facebook", Icon: Facebook },
+                    { href: "https://www.youtube.com/@airpropix", label: "YouTube", Icon: Youtube },
+                  ].map(({ href, label, Icon }) => (
+                    <a
+                      key={label}
+                      href={href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label={`AirProPix on ${label}`}
+                      title={label}
+                      className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-foreground/20 text-foreground transition-all duration-300 hover:-translate-y-0.5 hover:scale-105 hover:border-gold hover:text-gold"
+                    >
+                      <Icon size={20} aria-hidden />
+                    </a>
+                  ))}
+                  <span className="ml-2 font-mono text-sm text-slate">{t.social.handle}</span>
+                </div>
+              </div>
             </div>
             <div className="lg:col-span-7">
               <ContactForm t={t} lang={lang} />
