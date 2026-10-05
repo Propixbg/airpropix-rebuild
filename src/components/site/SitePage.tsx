@@ -70,7 +70,6 @@ export function SitePage({ lang }: { lang: Lang }) {
               <ul className="absolute bottom-3 left-3 right-3 flex flex-wrap gap-2 md:bottom-6 md:left-6">
                 {t.hero.tags.map((tag, i) => (
                   <li key={tag} className="rounded-full bg-background/90 px-4 py-2 text-sm font-medium backdrop-blur">
-                    <span className="mr-2 font-mono text-xs text-gold">0{i + 1}</span>
                     {tag}
                   </li>
                 ))}
@@ -82,11 +81,11 @@ export function SitePage({ lang }: { lang: Lang }) {
         {/* IDEA */}
         <section aria-labelledby="idea-h" className="py-24 md:py-32">
           <div className="container-x">
-            <ol className="grid grid-cols-2 gap-px overflow-hidden rounded-xl border bg-border md:grid-cols-4">
+            <ol className="grid grid-cols-1 gap-px overflow-hidden rounded-xl border bg-border min-[440px]:grid-cols-2 lg:grid-cols-4">
               {t.idea.words.map((w, i) => (
-                <li key={w} className="flex flex-col justify-between gap-10 bg-background p-6 md:p-8">
-                  <span className="font-mono text-xs text-gold">0{i + 1}</span>
-                  <span className="font-display text-xl md:text-3xl">{w}.</span>
+                <li key={w} className="flex flex-col justify-between gap-6 bg-background p-6 md:gap-10 md:p-8">
+                  <span className="h-px w-8 bg-gold" aria-hidden />
+                  <span className="font-display text-xl font-bold uppercase tracking-tight md:text-2xl xl:text-3xl">{w}.</span>
                 </li>
               ))}
             </ol>
@@ -119,12 +118,12 @@ export function SitePage({ lang }: { lang: Lang }) {
         <section aria-labelledby="events-h" className="py-24 md:py-32">
           <div className="container-x">
             <SectionHead id="events-h" label={t.events.label} title={t.events.title} text={t.events.text} />
-            <ul className="mt-14 grid grid-cols-2 gap-3 md:grid-cols-4 md:grid-rows-2 md:gap-4">
+            <ul className="mt-14 grid grid-cols-2 gap-3 md:grid-cols-4 md:gap-4">
               {t.events.items.map((e, i) => (
                 <li
                   key={e.title}
                   className={`group relative overflow-hidden rounded-xl bg-muted ${
-                    i === 0 ? "col-span-2 aspect-[4/3] md:row-span-2 md:aspect-auto" : i === 3 ? "aspect-[3/4] md:col-span-1 md:row-span-2 md:aspect-auto" : "aspect-[3/4] md:aspect-[4/3]"
+                    i === 0 || i >= 5 ? "col-span-2 aspect-[4/3] md:aspect-auto md:h-96" : "aspect-[3/4] md:aspect-auto md:h-96"
                   }`}
                 >
                   <Pic k={e.img} alt={e.alt} className="img-zoom" />
@@ -143,7 +142,6 @@ export function SitePage({ lang }: { lang: Lang }) {
               {t.mapping.steps.map((s, i) => (
                 <li key={s} className="flex items-center gap-3">
                   <span className="rounded-full border bg-background px-4 py-2 text-sm">
-                    <span className="mr-2 font-mono text-xs text-gold">0{i + 1}</span>
                     {s}
                   </span>
                   {i < t.mapping.steps.length - 1 && <ArrowRight size={14} className="text-slate" aria-hidden />}
@@ -170,9 +168,6 @@ export function SitePage({ lang }: { lang: Lang }) {
                 <li key={p.title} className="group">
                   <div className="relative aspect-[4/3] overflow-hidden rounded-xl bg-muted">
                     <Pic k={p.img} alt={p.alt} className="img-zoom" />
-                    <span className="absolute left-3 top-3 rounded bg-background/90 px-2 py-1 font-mono text-xs">
-                      {String(i + 1).padStart(2, "0")}
-                    </span>
                   </div>
                   <h4 className="mt-5 font-display text-lg">{p.title}</h4>
                   <p className="mt-2 text-muted-foreground">{p.text}</p>
@@ -207,9 +202,6 @@ export function SitePage({ lang }: { lang: Lang }) {
                 <li key={p.title} className="group">
                   <div className="relative aspect-[4/3] overflow-hidden rounded-xl bg-muted">
                     <Pic k={p.img} alt={p.alt} className="img-zoom" />
-                    <span className="absolute left-3 top-3 rounded bg-background/90 px-2 py-1 font-mono text-xs">
-                      {String(i + 1).padStart(2, "0")}
-                    </span>
                   </div>
                   <h4 className="mt-5 font-display text-lg">{p.title}</h4>
                   <p className="mt-2 text-muted-foreground">{p.text}</p>
@@ -224,12 +216,6 @@ export function SitePage({ lang }: { lang: Lang }) {
         <section aria-labelledby="evp-h" className="border-t bg-accent/40 py-24 md:py-32">
           <div className="container-x">
             <SectionHead id="evp-h" label={t.evp.label} title={t.evp.title} text={t.evp.text} />
-            <div className="mt-10 flex flex-wrap items-center gap-3">
-              <span className="eyebrow mr-2">{t.evp.qtyLabel}</span>
-              {["1", "10", "20", "50", "100+"].map((q) => (
-                <span key={q} className="rounded-full border border-foreground/15 bg-background px-4 py-2 font-mono text-sm">{q}</span>
-              ))}
-            </div>
             <ul className="mt-12 grid grid-cols-2 gap-4 lg:grid-cols-4">
               {t.evp.items.map((e, i) => (
                 <li key={e.title} className={`group ${i === 0 ? "col-span-2 row-span-2" : ""}`}>
@@ -240,7 +226,7 @@ export function SitePage({ lang }: { lang: Lang }) {
                 </li>
               ))}
             </ul>
-            <p className="mt-10 text-muted-foreground">{t.evp.audience}</p>
+            <p className="mt-10 max-w-3xl text-lg text-muted-foreground">{t.evp.audience}</p>
           </div>
         </section>
 
@@ -314,7 +300,7 @@ export function SitePage({ lang }: { lang: Lang }) {
             <ol className="mt-12 grid gap-px overflow-hidden rounded-xl border bg-border sm:grid-cols-2 lg:grid-cols-5">
               {t.process.steps.map((s, i) => (
                 <li key={s.t} className="flex flex-col gap-6 bg-background p-6">
-                  <span className="font-mono text-xs text-gold">0{i + 1}</span>
+                  <span className="h-px w-8 bg-gold" aria-hidden />
                   <div>
                     <h3 className="text-base">{s.t}</h3>
                     <p className="mt-2 text-sm text-muted-foreground">{s.d}</p>

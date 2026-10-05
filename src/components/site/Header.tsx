@@ -80,9 +80,8 @@ export function Header({ t, lang }: { t: Content; lang: Lang }) {
                 <a
                   href={href}
                   onClick={() => setOpen(false)}
-                  className="flex items-baseline gap-4 py-4 font-display text-2xl"
+                  className="flex items-baseline gap-4 py-4 font-display text-2xl font-semibold"
                 >
-                  <span className="eyebrow">{String(i + 1).padStart(2, "0")}</span>
                   {label}
                 </a>
               </li>

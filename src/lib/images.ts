@@ -9,6 +9,10 @@ import evBirthday from "@/assets/ev-birthday.jpg";
 import evCorporate from "@/assets/ev-corporate.jpg";
 import evDance from "@/assets/ev-dance.jpg";
 import evDetails from "@/assets/ev-details.jpg";
+import evVenue from "@/assets/ev-venue.jpg";
+import evGuests from "@/assets/ev-guests.jpg";
+import evFlorals from "@/assets/ev-florals.jpg";
+import evParty from "@/assets/ev-party.jpg";
 import mpAccess from "@/assets/mp-access.jpg";
 import mpRisk from "@/assets/mp-risk.jpg";
 import mpLarge from "@/assets/mp-large.jpg";
@@ -38,7 +42,7 @@ import evpFigurine from "@/assets/evp-figurine.jpg";
 
 export const img = {
   hero, pvRealestate, pvArchitecture, pvEvents, pvCorporate, pvProduct, pvDrone,
-  evBirthday, evCorporate, evDance, evDetails,
+  evBirthday, evCorporate, evDance, evDetails, evVenue, evGuests, evFlorals, evParty,
   mpAccess, mpRisk, mpLarge, mpField, mpContext,
   outOrtho, outPointcloud, out3dmodel, outDtm, outEarthworks, outProgress, outMeasure, outSitedoc,
   t3dTooling, t3dInjection, t3dIteration, t3dPrototype, t3dReplacement, t3dBatch,
