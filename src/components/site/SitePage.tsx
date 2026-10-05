@@ -81,11 +81,11 @@ export function SitePage({ lang }: { lang: Lang }) {
         {/* IDEA */}
         <section aria-labelledby="idea-h" className="py-24 md:py-32">
           <div className="container-x">
-            <ol className="grid grid-cols-2 gap-px overflow-hidden rounded-xl border bg-border md:grid-cols-4">
+            <ol className="grid grid-cols-1 gap-px overflow-hidden rounded-xl border bg-border min-[440px]:grid-cols-2 md:grid-cols-4">
               {t.idea.words.map((w, i) => (
-                <li key={w} className="flex flex-col justify-between gap-10 bg-background p-5 md:p-8">
+                <li key={w} className="flex flex-col justify-between gap-6 bg-background p-6 md:gap-10 md:p-8">
                   <span className="h-px w-8 bg-gold" aria-hidden />
-                  <span className="font-display text-base font-bold uppercase tracking-tight min-[400px]:text-lg md:text-3xl">{w}.</span>
+                  <span className="font-display text-xl font-bold uppercase tracking-tight md:text-2xl lg:text-3xl">{w}.</span>
                 </li>
               ))}
             </ol>
