@@ -123,7 +123,7 @@ export function SitePage({ lang }: { lang: Lang }) {
                 <li
                   key={e.title}
                   className={`group relative overflow-hidden rounded-xl bg-muted ${
-                    i === 0 || i === 5 ? "col-span-2 aspect-[4/3] md:aspect-[16/10]" : "aspect-[3/4] md:aspect-[4/5]"
+                    i === 0 || i >= 5 ? "col-span-2 aspect-[4/3] md:aspect-[16/10]" : "aspect-[3/4] md:aspect-[4/5]"
                   }`}
                 >
                   <Pic k={e.img} alt={e.alt} className="img-zoom" />
