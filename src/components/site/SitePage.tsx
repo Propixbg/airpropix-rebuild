@@ -83,9 +83,9 @@ export function SitePage({ lang }: { lang: Lang }) {
           <div className="container-x">
             <ol className="grid grid-cols-2 gap-px overflow-hidden rounded-xl border bg-border md:grid-cols-4">
               {t.idea.words.map((w, i) => (
-                <li key={w} className="flex flex-col justify-between gap-10 bg-background p-6 md:p-8">
+                <li key={w} className="flex flex-col justify-between gap-10 bg-background p-5 md:p-8">
                   <span className="h-px w-8 bg-gold" aria-hidden />
-                  <span className="font-display text-xl font-bold uppercase tracking-tight md:text-3xl">{w}.</span>
+                  <span className="font-display text-base font-bold uppercase tracking-tight min-[400px]:text-lg md:text-3xl">{w}.</span>
                 </li>
               ))}
             </ol>
@@ -123,7 +123,7 @@ export function SitePage({ lang }: { lang: Lang }) {
                 <li
                   key={e.title}
                   className={`group relative overflow-hidden rounded-xl bg-muted ${
-                    i === 0 || i >= 5 ? "col-span-2 aspect-[4/3] md:aspect-[16/10]" : "aspect-[3/4] md:aspect-[4/5]"
+                    i === 0 || i >= 5 ? "col-span-2 aspect-[4/3] md:aspect-auto md:h-96" : "aspect-[3/4] md:aspect-auto md:h-96"
                   }`}
                 >
                   <Pic k={e.img} alt={e.alt} className="img-zoom" />
