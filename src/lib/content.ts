@@ -46,10 +46,10 @@ const bg: Content = {
   idea: {
     words: ["Идея", "Възможност", "Реалност", "Резултат"],
     statement: "Идеята е само началото.",
-    text: "Имот, събитие, продукт, терен или техническа идея — правим ги видими, измерими, разбираеми, моделирани или създадени.",
+    text: "Всяка идея има потенциал да стане реалност. Ние изграждаме пътя от първия замисъл до готовия резултат.",
   },
   photo: {
-    label: "01 — Фото и видео",
+    label: "Фото и видео",
     title: "Визуално съдържание, което работи за вас",
     text: "Професионално заснето, естествено и детайлно — за бизнеса, пространствата и моментите, които имат значение.",
     cats: [
@@ -64,16 +64,20 @@ const bg: Content = {
   events: {
     label: "Събития",
     title: "Моментите, които остават",
-    text: "Естествени, атмосферни и висококачествени кадри от сватби, рождени дни, частни празненства и корпоративни събития.",
+    text: "Професионално визуално съдържание за сватби, частни и корпоративни събития — създадено с внимание към всеки детайл.",
     items: [
       { title: "Сватби", text: "", img: "evDance", alt: "Младоженци танцуват сред гостите под светлинни гирлянди" },
       { title: "Рождени дни", text: "", img: "evBirthday", alt: "Приятели празнуват рожден ден около торта с искрящи свещички" },
       { title: "Корпоративни събития", text: "", img: "evCorporate", alt: "Гости в официално облекло разговарят на корпоративна вечеря" },
       { title: "Детайли", text: "", img: "evDetails", alt: "Елегантна сватбена маса с бели цветя, свещи и кристални чаши" },
+      { title: "Сватбени локации", text: "", img: "evVenue", alt: "Дълга сватбена маса на открито с бели рози, свещи и светлинни гирлянди по залез" },
+      { title: "Гости", text: "", img: "evGuests", alt: "Усмихнати гости вдигат наздравица с шампанско на вечерно парти" },
+      { title: "Цветя и декорация", text: "", img: "evFlorals", alt: "Маса с божури, златни прибори и картичка с име върху ленена салфетка" },
+      { title: "Частни празненства", text: "", img: "evParty", alt: "Приятели с торта, балони и конфети на градинско рождено парти" },
     ],
   },
   mapping: {
-    label: "02 — Картографиране",
+    label: "Картографиране",
     title: "Пространствени данни, които можете да измерите",
     text: "Въздушно заснемане, пространствена обработка и анализ — с измерими резултати за строителство, проектиране и управление на терени.",
     steps: ["Планиране", "Заснемане", "Обработка", "Анализ", "Предаване"],
@@ -103,7 +107,7 @@ const bg: Content = {
     orthoAlt: "Ортофото на строителен терен с нанесени имотни граници",
   },
   b3d: {
-    label: "03 — 3D за бизнеса",
+    label: "3D за бизнеса",
     title: "От CAD модел до функционална част",
     text: "Прототипи, функционални и резервни части, корпуси, механични компоненти и малки серии — 3D моделиране и производство за реални задачи.",
     problemsTitle: "Решения за съвременно производство",
@@ -122,7 +126,7 @@ const bg: Content = {
     title: "Персонализирани продукти за събития",
     text: "Елегантни табелки за маси, табелки с имена, кейк топери, подаръци за гости, сувенири и корпоративни подаръци — създадени специално за вашето събитие.",
     qtyLabel: "Бройки",
-    audience: "За сватби, рождени дни, частни и корпоративни събития, организатори, агенции и бизнеси.",
+    audience: "За сватби, рождени дни, частни и корпоративни събития, организатори, агенции и бизнеси — от един персонализиран предмет до серии от десетки и над сто броя.",
     items: [
       { title: "Табелки за маси", text: "", img: "evpTable", alt: "Елегантна сватбена маса с персонализиран номер, цветя и свещи" },
       { title: "Табелки с имена", text: "", img: "evpName", alt: "Персонализирана табелка с име върху сервирана чиния" },
@@ -208,10 +212,10 @@ const en: Content = {
   idea: {
     words: ["Idea", "Possibility", "Reality", "Result"],
     statement: "The idea is only the beginning.",
-    text: "A property, an event, a product, a terrain or a technical idea — we make it visible, measurable, understandable, modelled or made.",
+    text: "Every idea has the potential to become reality. We build the path from the first concept to the final result.",
   },
   photo: {
-    label: "01 — Photo & Video",
+    label: "Photo & Video",
     title: "Visual content that works for you",
     text: "Professionally captured, natural and detailed — for businesses, spaces and the moments that matter.",
     cats: [
@@ -226,16 +230,20 @@ const en: Content = {
   events: {
     label: "Events",
     title: "The moments that stay",
-    text: "Natural, atmospheric, high-quality imagery from weddings, birthdays, private celebrations and corporate events.",
+    text: "Professional visual content for weddings, private and corporate events — created with attention to every detail.",
     items: [
       { title: "Weddings", text: "", img: "evDance", alt: "Bride and groom dancing among guests under string lights" },
       { title: "Birthdays", text: "", img: "evBirthday", alt: "Friends celebrating a birthday around a cake with sparklers" },
       { title: "Corporate Events", text: "", img: "evCorporate", alt: "Guests in formal attire talking at a corporate dinner" },
       { title: "Details", text: "", img: "evDetails", alt: "Elegant wedding table with white flowers, candles and crystal glasses" },
+      { title: "Wedding Venues", text: "", img: "evVenue", alt: "Long outdoor wedding table with white roses, candles and string lights at sunset" },
+      { title: "Guests", text: "", img: "evGuests", alt: "Smiling guests toasting with champagne at an evening dinner party" },
+      { title: "Florals & Styling", text: "", img: "evFlorals", alt: "Table with peonies, gold cutlery and a name card on a linen napkin" },
+      { title: "Private Celebrations", text: "", img: "evParty", alt: "Friends with a cake, balloons and confetti at a garden birthday party" },
     ],
   },
   mapping: {
-    label: "02 — Mapping",
+    label: "Mapping",
     title: "Spatial data you can measure",
     text: "Aerial capture, spatial processing and analysis — with measurable outputs for construction, design and land management.",
     steps: ["Plan", "Capture", "Process", "Analyze", "Deliver"],
@@ -265,7 +273,7 @@ const en: Content = {
     orthoAlt: "Orthophoto of a construction site with property boundaries overlaid",
   },
   b3d: {
-    label: "03 — 3D for Business",
+    label: "3D for Business",
     title: "From CAD model to functional part",
     text: "Prototypes, functional and replacement parts, enclosures, mechanical components and small runs — 3D modelling and manufacturing for real tasks.",
     problemsTitle: "Solutions for modern production",
@@ -284,7 +292,7 @@ const en: Content = {
     title: "Personalized event products",
     text: "Elegant table numbers, name signs, cake toppers, guest gifts, souvenirs and corporate gifts — made specifically for your event.",
     qtyLabel: "Quantities",
-    audience: "For weddings, birthdays, private and corporate events, event planners, agencies and businesses.",
+    audience: "For weddings, birthdays, private and corporate events, event planners, agencies and businesses — from a single personalized piece to runs of dozens or more than a hundred.",
     items: [
       { title: "Table Numbers", text: "", img: "evpTable", alt: "Elegant wedding table with a personalized number, flowers and candles" },
       { title: "Name Signs", text: "", img: "evpName", alt: "Personalized name sign on a place setting" },
