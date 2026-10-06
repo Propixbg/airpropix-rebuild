@@ -1,3 +1,4 @@
+import type React from "react";
 import { useState } from "react";
 import { ArrowRight, ArrowUpRight, Phone, Mail, Instagram, Facebook, Youtube } from "lucide-react";
 import logo from "@/assets/airpropix-logo.png.asset.json";
@@ -81,11 +82,10 @@ export function SitePage({ lang }: { lang: Lang }) {
         {/* IDEA */}
         <section aria-labelledby="idea-h" className="py-24 md:py-32">
           <div className="container-x">
-            <ol className="grid grid-cols-1 gap-px overflow-hidden rounded-xl border bg-border min-[440px]:grid-cols-2 lg:grid-cols-4">
-              {t.idea.words.map((w, i) => (
-                <li key={w} className="flex flex-col justify-between gap-6 bg-background p-6 md:gap-10 md:p-8">
-                  <span className="h-px w-8 bg-gold" aria-hidden />
-                  <span className="font-display text-xl font-bold uppercase tracking-tight md:text-2xl xl:text-3xl">{w}.</span>
+            <ol className="grid grid-cols-1 gap-x-12 gap-y-10 min-[440px]:grid-cols-2 lg:grid-cols-4">
+              {t.idea.words.map((w) => (
+                <li key={w} className="transition-opacity duration-300 hover:opacity-60">
+                  <span className="font-display text-2xl font-bold uppercase tracking-tight md:text-3xl xl:text-4xl">{w}.</span>
                 </li>
               ))}
             </ol>
@@ -115,7 +115,7 @@ export function SitePage({ lang }: { lang: Lang }) {
         </section>
 
         {/* EVENTS GALLERY */}
-        <section aria-labelledby="events-h" className="py-24 md:py-32">
+        <section id="events" aria-labelledby="events-h" className="py-24 md:py-32">
           <div className="container-x">
             <SectionHead id="events-h" label={t.events.label} title={t.events.title} text={t.events.text} />
             <ul className="mt-14 grid grid-cols-2 gap-3 md:grid-cols-4 md:gap-4">
@@ -213,7 +213,7 @@ export function SitePage({ lang }: { lang: Lang }) {
         </section>
 
         {/* 3D EVENTS */}
-        <section aria-labelledby="evp-h" className="border-t bg-accent/40 py-24 md:py-32">
+        <section id="3d-events" aria-labelledby="evp-h" className="border-t bg-accent/40 py-24 md:py-32">
           <div className="container-x">
             <SectionHead id="evp-h" label={t.evp.label} title={t.evp.title} text={t.evp.text} />
             <ul className="mt-12 grid grid-cols-2 gap-4 lg:grid-cols-4">
@@ -353,11 +353,12 @@ export function SitePage({ lang }: { lang: Lang }) {
               </ul>
               <div className="mt-10 border-t pt-8">
                 <p className="eyebrow mb-4">{t.social.label}</p>
-                <div className="flex items-center gap-3">
+                <div className="flex flex-wrap items-center gap-3">
                   {[
                     { href: "https://www.instagram.com/airpropix", label: "Instagram", Icon: Instagram },
                     { href: "https://www.facebook.com/airpropix", label: "Facebook", Icon: Facebook },
                     { href: "https://www.youtube.com/@airpropix", label: "YouTube", Icon: Youtube },
+                    { href: "https://www.tiktok.com/@airpropix", label: "TikTok", Icon: TikTokIcon },
                   ].map(({ href, label, Icon }) => (
                     <a
                       key={label}
@@ -389,13 +390,19 @@ export function SitePage({ lang }: { lang: Lang }) {
             <p className="eyebrow mt-4">{t.footer.tagline}</p>
           </div>
           <div className="flex flex-col gap-2 text-sm md:items-end">
-            <a href="https://www.tiktok.com/@airpropix" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 hover:underline">
-              {t.footer.follow}: TikTok @airpropix <ArrowUpRight size={14} aria-hidden />
-            </a>
+            
             <p className="text-muted-foreground">© {new Date().getFullYear()} AirProPix. {t.footer.rights}</p>
           </div>
         </div>
       </footer>
     </>
+  );
+}
+
+function TikTokIcon({ size = 20, ...p }: { size?: number } & React.SVGProps<SVGSVGElement>) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" {...p}>
+      <path d="M9 12a4 4 0 1 0 4 4V3c.5 2.5 2.5 4.5 5 5" />
+    </svg>
   );
 }
