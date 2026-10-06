@@ -76,20 +76,21 @@ export function SitePage({ lang }: { lang: Lang }) {
                 ))}
               </ul>
             </div>
+            <p className="mt-14 grid place-items-center text-center md:mt-20" aria-label={t.idea.words.join(", ")}>
+              {t.idea.words.map((w, i) => (
+                <span key={w} aria-hidden className="word-cycle col-start-1 row-start-1 font-display text-2xl font-semibold uppercase tracking-[0.3em] text-slate md:text-4xl" style={{ animationDelay: `${i * 2}s` }}>
+                  {w}
+                </span>
+              ))}
+            </p>
           </div>
         </section>
 
         {/* IDEA */}
         <section aria-labelledby="idea-h" className="py-24 md:py-32">
           <div className="container-x">
-            <ol className="grid grid-cols-1 gap-x-12 gap-y-10 min-[440px]:grid-cols-2 lg:grid-cols-4">
-              {t.idea.words.map((w) => (
-                <li key={w} className="transition-opacity duration-300 hover:opacity-60">
-                  <span className="font-display text-2xl font-bold uppercase tracking-tight md:text-3xl xl:text-4xl">{w}.</span>
-                </li>
-              ))}
-            </ol>
-            <div className="mt-14 grid gap-6 md:grid-cols-12">
+            
+            <div className="grid gap-6 md:grid-cols-12">
               <h2 id="idea-h" className="text-3xl md:col-span-7 md:text-5xl">{t.idea.statement}</h2>
               <p className="text-lg text-muted-foreground md:col-span-5">{t.idea.text}</p>
             </div>
@@ -236,11 +237,6 @@ export function SitePage({ lang }: { lang: Lang }) {
             <div className="md:col-span-7">
               <h2 id="why-h" className="text-4xl leading-[1.05] md:text-6xl">{t.why.title}</h2>
               <p className="mt-8 text-lg opacity-75">{t.why.text}</p>
-              <ul className="mt-6 flex flex-wrap gap-2">
-                {t.why.verbs.map((v) => (
-                  <li key={v} className="rounded-full border border-ink-foreground/25 px-4 py-2">{v}</li>
-                ))}
-              </ul>
             </div>
             <div className="flex flex-col justify-end md:col-span-5">
               <p className="font-display text-2xl text-gold md:text-3xl">{t.why.second}</p>
@@ -297,18 +293,16 @@ export function SitePage({ lang }: { lang: Lang }) {
           <div className="container-x">
             <p className="eyebrow mb-4">{t.process.label}</p>
             <h2 id="process-h" className="text-3xl md:text-5xl">{t.process.title}</h2>
-            <ol className="mt-12 grid gap-px overflow-hidden rounded-xl border bg-border sm:grid-cols-2 lg:grid-cols-5">
-              {t.process.steps.map((s, i) => (
-                <li key={s.t} className="flex flex-col gap-6 bg-background p-6">
-                  <span className="h-px w-8 bg-gold" aria-hidden />
+            <ol className="mt-12 grid gap-x-10 gap-y-10 sm:grid-cols-2 lg:grid-cols-5">
+              {t.process.steps.map((s) => (
+                <li key={s.t} className="border-none bg-transparent shadow-none transition-opacity duration-300 hover:opacity-70">
                   <div>
-                    <h3 className="text-base">{s.t}</h3>
+                    <h3 className="text-base font-bold uppercase tracking-wide">{s.t}</h3>
                     <p className="mt-2 text-sm text-muted-foreground">{s.d}</p>
                   </div>
                 </li>
               ))}
             </ol>
-            <p className="mt-12 font-display text-2xl md:text-4xl">{t.process.line}</p>
           </div>
         </section>
 
@@ -372,7 +366,6 @@ export function SitePage({ lang }: { lang: Lang }) {
                       <Icon size={20} aria-hidden />
                     </a>
                   ))}
-                  <span className="ml-2 font-mono text-sm text-slate">{t.social.handle}</span>
                 </div>
               </div>
             </div>
@@ -387,7 +380,6 @@ export function SitePage({ lang }: { lang: Lang }) {
         <div className="container-x flex flex-col gap-8 md:flex-row md:items-center md:justify-between">
           <div>
             <img src={logo.url} alt="AirProPix" width={690} height={137} loading="lazy" className="h-6 w-auto" />
-            <p className="eyebrow mt-4">{t.footer.tagline}</p>
           </div>
           <div className="flex flex-col gap-2 text-sm md:items-end">
             
