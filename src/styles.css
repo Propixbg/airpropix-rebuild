@@ -62,7 +62,7 @@
   --gold-soft: oklch(0.93 0.035 82);
   --slate: oklch(0.52 0.02 230);
   --survey: oklch(0.72 0.12 200);
-  --ink: oklch(0.21 0.012 250);
+  --ink: oklch(0.24 0.005 70);
   --ink-foreground: oklch(0.97 0.004 85);
   --destructive: oklch(0.577 0.245 27.325);
   --destructive-foreground: oklch(0.985 0 0);
@@ -115,3 +115,7 @@
   .animate-rise { animation: none; }
   html { scroll-behavior: auto; }
 }
+
+@keyframes word-cycle { 0% { opacity: 0; transform: translateY(6px); } 5%, 22% { opacity: 1; transform: none; } 27%, 100% { opacity: 0; transform: translateY(-6px); } }
+.word-cycle { opacity: 0; animation: word-cycle 8s ease-in-out infinite; }
+@media (prefers-reduced-motion: reduce) { .word-cycle { animation-duration: 16s; } }
