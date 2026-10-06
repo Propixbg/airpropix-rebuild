@@ -8,7 +8,7 @@ type WorkItem = { cat: "photo" | "mapping" | "3d"; title: string; img: ImgKey; a
 
 export type Content = {
   meta: { title: string; description: string };
-  nav: { home: string; photo: string; mapping: string; d3: string; work: string; about: string; contact: string; cta: string; menu: string; close: string };
+  nav: { home: string; photo: string; mapping: string; d3: string; work: string; about: string; contact: string; cta: string; menu: string; close: string; sub: { photo: [string, string][]; mapping: [string, string][]; d3: [string, string][] } };
   hero: { eyebrow: string; line1: string; line2: string; text: string; tags: string[]; cta: string; secondary: string; alt: string };
   idea: { words: string[]; statement: string; text: string };
   photo: { label: string; title: string; text: string; cats: Card[] };
@@ -32,7 +32,11 @@ const bg: Content = {
     title: "AirProPix — Фото и видео, картографиране и 3D",
     description: "Професионално фото и видео заснемане, дрон картографиране, ортофото, измервания, 3D прототипи и персонализирани продукти за събития.",
   },
-  nav: { home: "Начало", photo: "Фото и видео", mapping: "Картографиране", d3: "3D", work: "Нашата работа", about: "За нас", contact: "Контакт", cta: "Започнете проект", menu: "Меню", close: "Затвори" },
+  nav: { home: "Начало", photo: "Фото и видео", mapping: "Картографиране", d3: "3D печат", work: "Нашата работа", about: "За нас", contact: "Контакт", cta: "Започнете проект", menu: "Меню", close: "Затвори", sub: {
+    photo: [["#photo", "Недвижими имоти"], ["#photo", "Архитектура и интериор"], ["#events", "Събития"], ["#photo", "Корпоративно заснемане"], ["#photo", "Продуктово заснемане"], ["#photo", "Дрон фото и видео"]],
+    mapping: [["#mapping", "Ортофотоплан"], ["#mapping", "Облак от точки"], ["#mapping", "Цифров модел на терена"], ["#mapping", "Работен процес"]],
+    d3: [["#3d", "3D за бизнеса"], ["#3d-events", "3D за събития и персонализация"]],
+  } },
   hero: {
     eyebrow: "Идея. Възможност. Реалност. Резултат.",
     line1: "Заснемаме реалността.",
@@ -198,7 +202,11 @@ const en: Content = {
     title: "AirProPix — Photo & Video, Mapping and 3D",
     description: "Professional photo and video, drone mapping, orthophotos, measurements, 3D prototypes and personalized event products.",
   },
-  nav: { home: "Home", photo: "Photo & Video", mapping: "Mapping", d3: "3D", work: "Our Work", about: "About", contact: "Contact", cta: "Start a project", menu: "Menu", close: "Close" },
+  nav: { home: "Home", photo: "Photo & Video", mapping: "Mapping", d3: "3D Printing", work: "Our Work", about: "About", contact: "Contact", cta: "Start a project", menu: "Menu", close: "Close", sub: {
+    photo: [["#photo", "Real estate"], ["#photo", "Architecture & interiors"], ["#events", "Events"], ["#photo", "Corporate Visuals"], ["#photo", "Product photography & video"], ["#photo", "Drone photo & video"]],
+    mapping: [["#mapping", "Orthophoto"], ["#mapping", "Point cloud"], ["#mapping", "Digital terrain model"], ["#mapping", "Workflow"]],
+    d3: [["#3d", "3D for business"], ["#3d-events", "3D for events & personalization"]],
+  } },
   hero: {
     eyebrow: "Idea. Possibility. Reality. Result.",
     line1: "We capture reality.",

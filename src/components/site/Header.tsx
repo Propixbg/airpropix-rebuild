@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link } from "@tanstack/react-router";
-import { Menu, X } from "lucide-react";
+import { ChevronDown, Menu, X } from "lucide-react";
 import logo from "@/assets/airpropix-logo.png.asset.json";
 import type { Content, Lang } from "@/lib/content";
 
@@ -39,11 +39,29 @@ export function Header({ t, lang }: { t: Content; lang: Lang }) {
           <img src={logo.url} alt="AirProPix" width={690} height={137} className="h-6 w-auto md:h-7" />
         </a>
         <nav aria-label="Main" className="hidden items-center gap-6 xl:flex">
-          {links.slice(1).map(([href, label]) => (
-            <a key={href} href={href} className="text-sm text-muted-foreground transition-colors hover:text-foreground">
-              {label}
-            </a>
-          ))}
+          {links.slice(1).map(([href, label]) => {
+            const key = href === "#photo" ? "photo" : href === "#mapping" ? "mapping" : href === "#3d" ? "d3" : null;
+            if (!key) return (
+              <a key={href} href={href} className="text-sm text-muted-foreground transition-colors hover:text-foreground">{label}</a>
+            );
+            return (
+              <div key={href} className="group relative">
+                <a href={href} aria-haspopup="true" className="inline-flex items-center gap-1 py-5 text-sm text-muted-foreground transition-colors hover:text-foreground group-focus-within:text-foreground">
+                  {label}
+                  <ChevronDown size={14} aria-hidden className="transition-transform duration-200 group-hover:rotate-180 group-focus-within:rotate-180" />
+                </a>
+                <div className="invisible absolute left-1/2 top-full z-50 -translate-x-1/2 pt-1 opacity-0 transition-all duration-200 group-hover:visible group-hover:opacity-100 group-focus-within:visible group-focus-within:opacity-100">
+                  <ul className="min-w-60 rounded-lg bg-background py-2 shadow-lg">
+                    {t.nav.sub[key].map(([h, l]) => (
+                      <li key={l}>
+                        <a href={h} className="block px-5 py-2 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground">{l}</a>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+            );
+          })}
         </nav>
         <div className="flex items-center gap-3">
           <Link
