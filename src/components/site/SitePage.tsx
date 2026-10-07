@@ -47,7 +47,13 @@ export function SitePage({ lang }: { lang: Lang }) {
         {/* HERO */}
         <section id="top" className="relative overflow-hidden pt-28 md:pt-32">
           <div className="container-x relative">
-            <p className="eyebrow animate-rise">{t.hero.eyebrow}</p>
+            <p className="animate-rise grid" aria-label={t.idea.words.join(", ")}>
+              {t.idea.words.map((w, i) => (
+                <span key={w} aria-hidden className="word-cycle col-start-1 row-start-1 font-mono text-xs uppercase tracking-[0.3em] text-slate md:text-sm" style={{ animationDelay: `${i * 2}s` }}>
+                  {w}
+                </span>
+              ))}
+            </p>
             <h1 className="animate-rise mt-6 max-w-5xl text-[2.4rem] leading-[1.02] sm:text-6xl lg:text-7xl">
               {t.hero.line1}
               <br />
@@ -76,13 +82,6 @@ export function SitePage({ lang }: { lang: Lang }) {
                 ))}
               </ul>
             </div>
-            <p className="mt-14 grid place-items-center text-center md:mt-20" aria-label={t.idea.words.join(", ")}>
-              {t.idea.words.map((w, i) => (
-                <span key={w} aria-hidden className="word-cycle col-start-1 row-start-1 font-display text-2xl font-semibold uppercase tracking-[0.3em] text-slate md:text-4xl" style={{ animationDelay: `${i * 2}s` }}>
-                  {w}
-                </span>
-              ))}
-            </p>
           </div>
         </section>
 
@@ -228,20 +227,6 @@ export function SitePage({ lang }: { lang: Lang }) {
               ))}
             </ul>
             <p className="mt-10 max-w-3xl text-lg text-muted-foreground">{t.evp.audience}</p>
-          </div>
-        </section>
-
-        {/* WHY */}
-        <section aria-labelledby="why-h" className="bg-ink py-24 text-ink-foreground md:py-32">
-          <div className="container-x grid gap-12 md:grid-cols-12">
-            <div className="md:col-span-7">
-              <h2 id="why-h" className="text-4xl leading-[1.05] md:text-6xl">{t.why.title}</h2>
-              <p className="mt-8 text-lg opacity-75">{t.why.text}</p>
-            </div>
-            <div className="flex flex-col justify-end md:col-span-5">
-              <p className="font-display text-2xl text-gold md:text-3xl">{t.why.second}</p>
-              <p className="mt-4 opacity-75">{t.why.secondText}</p>
-            </div>
           </div>
         </section>
 
