@@ -16,7 +16,6 @@ export type Content = {
   mapping: { label: string; title: string; text: string; steps: string[]; problemsTitle: string; problems: Card[]; outputsTitle: string; outputs: Card[]; orthoTitle: string; orthoText: string; orthoNote: string; orthoAlt: string };
   b3d: { label: string; title: string; text: string; problemsTitle: string; problems: Card[]; note: string };
   evp: { label: string; title: string; text: string; qtyLabel: string; items: Card[]; audience: string };
-  why: { title: string; text: string; verbs: string[]; second: string; secondText: string };
   work: { label: string; title: string; filters: { all: string; photo: string; mapping: string; d3: string }; items: WorkItem[] };
   process: { label: string; title: string; steps: { t: string; d: string }[] };
   about: { label: string; title: string; text: string; points: string[] };
@@ -141,13 +140,6 @@ const bg: Content = {
       { title: "Малки фигурки", text: "", img: "evpFigurine", alt: "Персонализирана фигурка на танцуваща двойка на сватбена маса" },
     ],
   },
-  why: {
-    title: "Идеята е само началото.",
-    text: "Една идея става полезна, когато може да бъде:",
-    verbs: ["видяна", "разбрана", "измерена", "моделирана", "създадена"],
-    second: "Разликата е в детайла.",
-    secondText: "Визуалното, пространственото и триизмерното се допълват — един екип, един процес, един резултат.",
-  },
   work: {
     label: "Избрани проекти",
     title: "Нашата работа",
@@ -181,7 +173,7 @@ const bg: Content = {
     text: "AirProPix съчетава визуален опит, пространствено мислене и 3D моделиране в професионален работен процес с практични резултати.",
     points: ["Визуална експертиза", "Пространствени данни", "3D моделиране и производство", "Професионален процес"],
   },
-  contact: { title: "Имате проект?", text: "Разкажете ни какво искате да заснемете, измерите или създадете.", phone: "+359 892 061 977", email: "contact@airpropix.com" },
+  contact: { title: "Имате проект?", text: "Разкажете ни какво искате да заснемете, измерите или създадете. Базирани сме в София и работим по проекти в цяла България, а при нужда и в чужбина.", phone: "+359 892 061 977", email: "contact@airpropix.com" },
   social: { label: "Последвайте ни", handle: "@airpropix" },
   form: {
     name: "Име", email: "Имейл", phone: "Телефон", company: "Компания", optional: "по избор", type: "Тип проект",
@@ -310,13 +302,6 @@ const en: Content = {
       { title: "Small Figurines", text: "", img: "evpFigurine", alt: "Personalized figurine of a dancing couple on a wedding table" },
     ],
   },
-  why: {
-    title: "The idea is only the beginning.",
-    text: "An idea becomes useful when it can be:",
-    verbs: ["seen", "understood", "measured", "modelled", "created"],
-    second: "The details make the difference.",
-    secondText: "Visual, spatial and three-dimensional work complement each other — one team, one process, one result.",
-  },
   work: {
     label: "Selected projects",
     title: "Our Work",
@@ -350,7 +335,7 @@ const en: Content = {
     text: "AirProPix combines visual expertise, spatial understanding and 3D modelling in a professional workflow with practical outputs.",
     points: ["Visual expertise", "Spatial data", "3D modelling & manufacturing", "Professional workflow"],
   },
-  contact: { title: "Have a project?", text: "Tell us what you want to capture, measure or create.", phone: "+359 892 061 977", email: "contact@airpropix.com" },
+  contact: { title: "Have a project?", text: "Tell us what you want to capture, measure or create. We are based in Sofia and work on projects throughout Bulgaria, and abroad when needed.", phone: "+359 892 061 977", email: "contact@airpropix.com" },
   social: { label: "Follow us", handle: "@airpropix" },
   form: {
     name: "Name", email: "Email", phone: "Phone", company: "Company", optional: "optional", type: "Project type",
