@@ -16,21 +16,20 @@ export type Content = {
   mapping: { label: string; title: string; text: string; steps: string[]; problemsTitle: string; problems: Card[]; outputsTitle: string; outputs: Card[]; orthoTitle: string; orthoText: string; orthoNote: string; orthoAlt: string };
   b3d: { label: string; title: string; text: string; problemsTitle: string; problems: Card[]; note: string };
   evp: { label: string; title: string; text: string; qtyLabel: string; items: Card[]; audience: string };
-  why: { title: string; text: string; verbs: string[]; second: string; secondText: string };
   work: { label: string; title: string; filters: { all: string; photo: string; mapping: string; d3: string }; items: WorkItem[] };
-  process: { label: string; title: string; steps: { t: string; d: string }[]; line: string };
+  process: { label: string; title: string; steps: { t: string; d: string }[] };
   about: { label: string; title: string; text: string; points: string[] };
   contact: { title: string; text: string; phone: string; email: string };
   social: { label: string; handle: string };
   form: { name: string; email: string; phone: string; company: string; optional: string; type: string; types: { photo: string; mapping: string; d3: string; other: string }; message: string; submit: string; sending: string; success: string; error: string; captcha: string; required: string; invalidEmail: string; notConfigured: string };
-  footer: { tagline: string; rights: string; follow: string };
+  footer: { rights: string; follow: string };
   problemWord: string;
 };
 
 const bg: Content = {
   meta: {
-    title: "AirProPix — Фото и видео, картографиране и 3D",
-    description: "Професионално фото и видео заснемане, дрон картографиране, ортофото, измервания, 3D прототипи и персонализирани продукти за събития.",
+    title: "AirProPix | Дрон Заснемане, Имоти, Събития, 3D Картографиране и 3D Печат София",
+    description: "Професионални фото и видео услуги: сватби, рождени дни, детски партита, кръщенета, корпоративни събития, имоти, заснемане с дрон, ортофотоплан, 3D моделиране и 3D печат за бизнеса в София и България. Поискайте оферта!",
   },
   nav: { home: "Начало", photo: "Фото и видео", mapping: "Картографиране", d3: "3D печат", work: "Нашата работа", about: "За нас", contact: "Контакт", cta: "Започнете проект", menu: "Меню", close: "Затвори", sub: {
     photo: [["#photo", "Недвижими имоти"], ["#photo", "Архитектура и интериор"], ["#events", "Събития"], ["#photo", "Корпоративно заснемане"], ["#photo", "Продуктово заснемане"], ["#photo", "Дрон фото и видео"]],
@@ -40,7 +39,7 @@ const bg: Content = {
   hero: {
     eyebrow: "Идея. Възможност. Реалност. Резултат.",
     line1: "Заснемаме реалността.",
-    line2: "Превръщаме я в нещо повече.",
+    line2: "Фото, видео, дрон картографиране и 3D печат в София и цяла България.",
     text: "От професионално визуално съдържание до пространствени данни и 3D решения — превръщаме реалните проекти в нещо, което можете да видите, разберете и използвате.",
     tags: ["Фото и видео", "Картографиране", "3D"],
     cta: "Започнете проект",
@@ -75,7 +74,7 @@ const bg: Content = {
       { title: "Корпоративни събития", text: "", img: "evCorporate", alt: "Гости в официално облекло разговарят на корпоративна вечеря" },
       { title: "Детайли", text: "", img: "evDetails", alt: "Елегантна сватбена маса с бели цветя, свещи и кристални чаши" },
       { title: "Сватбени локации", text: "", img: "evVenue", alt: "Дълга сватбена маса на открито с бели рози, свещи и светлинни гирлянди по залез" },
-      { title: "Гости", text: "", img: "evGuests", alt: "Усмихнати гости вдигат наздравица с шампанско на вечерно парти" },
+      { title: "Емоции", text: "", img: "evGuests", alt: "Усмихнати гости вдигат наздравица с шампанско на вечерно парти" },
       { title: "Цветя и декорация", text: "", img: "evFlorals", alt: "Маса с божури, златни прибори и картичка с име върху ленена салфетка" },
       { title: "Частни празненства", text: "", img: "evParty", alt: "Приятели с торта, балони и конфети на градинско рождено парти" },
     ],
@@ -141,13 +140,6 @@ const bg: Content = {
       { title: "Малки фигурки", text: "", img: "evpFigurine", alt: "Персонализирана фигурка на танцуваща двойка на сватбена маса" },
     ],
   },
-  why: {
-    title: "Идеята е само началото.",
-    text: "Една идея става полезна, когато може да бъде:",
-    verbs: ["видяна", "разбрана", "измерена", "моделирана", "създадена"],
-    second: "Разликата е в детайла.",
-    secondText: "Визуалното, пространственото и триизмерното се допълват — един екип, един процес, един резултат.",
-  },
   work: {
     label: "Избрани проекти",
     title: "Нашата работа",
@@ -170,11 +162,10 @@ const bg: Content = {
     steps: [
       { t: "Идея", d: "Започваме от вашата цел." },
       { t: "Разбиране", d: "Изясняваме нуждите и контекста." },
-      { t: "Заснемане / Картографиране / Моделиране", d: "Избираме правилния подход." },
+      { t: "Заснемане, картографиране или моделиране", d: "Избираме правилния подход." },
       { t: "Обработка", d: "Прецизна работа с данни и детайли." },
       { t: "Резултат", d: "Готов за използване продукт." },
     ],
-    line: "Заснеми. Картографирай. Моделирай. Създай.",
   },
   about: {
     label: "За нас",
@@ -182,7 +173,7 @@ const bg: Content = {
     text: "AirProPix съчетава визуален опит, пространствено мислене и 3D моделиране в професионален работен процес с практични резултати.",
     points: ["Визуална експертиза", "Пространствени данни", "3D моделиране и производство", "Професионален процес"],
   },
-  contact: { title: "Имате проект?", text: "Разкажете ни какво искате да заснемете, измерите или създадете.", phone: "+359 892 061 977", email: "contact@airpropix.com" },
+  contact: { title: "Имате проект?", text: "Разкажете ни какво искате да заснемете, измерите или създадете. Базирани сме в София и работим по проекти в цяла България, а при нужда и в чужбина.", phone: "+359 892 061 977", email: "contact@airpropix.com" },
   social: { label: "Последвайте ни", handle: "@airpropix" },
   form: {
     name: "Име", email: "Имейл", phone: "Телефон", company: "Компания", optional: "по избор", type: "Тип проект",
@@ -193,14 +184,14 @@ const bg: Content = {
     captcha: "Моля, потвърдете, че не сте робот.", required: "Задължително поле.", invalidEmail: "Невалиден имейл адрес.",
     notConfigured: "Формата временно не е активна. Моля, свържете се с нас по телефон или имейл.",
   },
-  footer: { tagline: "Заснеми. Картографирай. Моделирай. Създай.", rights: "Всички права запазени.", follow: "Последвайте ни" },
+  footer: { rights: "Всички права запазени.", follow: "Последвайте ни" },
   problemWord: "Проблем",
 };
 
 const en: Content = {
   meta: {
-    title: "AirProPix — Photo & Video, Mapping and 3D",
-    description: "Professional photo and video, drone mapping, orthophotos, measurements, 3D prototypes and personalized event products.",
+    title: "AirProPix | Drone Photography, Real Estate, Events, 3D Mapping & 3D Printing Sofia",
+    description: "High-end photo & video production for real estate, weddings, birthdays, kids parties, corporate events, drone mapping, orthophotomaps, 3D modeling, and custom 3D printing services in Sofia, Bulgaria.",
   },
   nav: { home: "Home", photo: "Photo & Video", mapping: "Mapping", d3: "3D Printing", work: "Our Work", about: "About", contact: "Contact", cta: "Start a project", menu: "Menu", close: "Close", sub: {
     photo: [["#photo", "Real estate"], ["#photo", "Architecture & interiors"], ["#events", "Events"], ["#photo", "Corporate Visuals"], ["#photo", "Product photography & video"], ["#photo", "Drone photo & video"]],
@@ -210,7 +201,7 @@ const en: Content = {
   hero: {
     eyebrow: "Idea. Possibility. Reality. Result.",
     line1: "We capture reality.",
-    line2: "We turn it into something more.",
+    line2: "Photo, video, drone mapping and 3D printing in Sofia and across Bulgaria.",
     text: "From professional visual content to spatial data and 3D solutions — we turn real projects into something you can see, understand and use.",
     tags: ["Photo & Video", "Mapping", "3D"],
     cta: "Start a project",
@@ -245,7 +236,7 @@ const en: Content = {
       { title: "Corporate Events", text: "", img: "evCorporate", alt: "Guests in formal attire talking at a corporate dinner" },
       { title: "Details", text: "", img: "evDetails", alt: "Elegant wedding table with white flowers, candles and crystal glasses" },
       { title: "Wedding Venues", text: "", img: "evVenue", alt: "Long outdoor wedding table with white roses, candles and string lights at sunset" },
-      { title: "Guests", text: "", img: "evGuests", alt: "Smiling guests toasting with champagne at an evening dinner party" },
+      { title: "Emotions", text: "", img: "evGuests", alt: "Smiling guests toasting with champagne at an evening dinner party" },
       { title: "Florals & Styling", text: "", img: "evFlorals", alt: "Table with peonies, gold cutlery and a name card on a linen napkin" },
       { title: "Private Celebrations", text: "", img: "evParty", alt: "Friends with a cake, balloons and confetti at a garden birthday party" },
     ],
@@ -311,13 +302,6 @@ const en: Content = {
       { title: "Small Figurines", text: "", img: "evpFigurine", alt: "Personalized figurine of a dancing couple on a wedding table" },
     ],
   },
-  why: {
-    title: "The idea is only the beginning.",
-    text: "An idea becomes useful when it can be:",
-    verbs: ["seen", "understood", "measured", "modelled", "created"],
-    second: "The details make the difference.",
-    secondText: "Visual, spatial and three-dimensional work complement each other — one team, one process, one result.",
-  },
   work: {
     label: "Selected projects",
     title: "Our Work",
@@ -340,11 +324,10 @@ const en: Content = {
     steps: [
       { t: "Idea", d: "We start from your goal." },
       { t: "Understand", d: "We clarify needs and context." },
-      { t: "Capture / Map / Model", d: "We choose the right approach." },
+      { t: "Capture, mapping or modelling", d: "We choose the right approach." },
       { t: "Process", d: "Precise work with data and detail." },
       { t: "Result", d: "A ready-to-use outcome." },
     ],
-    line: "Capture. Map. Model. Make.",
   },
   about: {
     label: "About",
@@ -352,7 +335,7 @@ const en: Content = {
     text: "AirProPix combines visual expertise, spatial understanding and 3D modelling in a professional workflow with practical outputs.",
     points: ["Visual expertise", "Spatial data", "3D modelling & manufacturing", "Professional workflow"],
   },
-  contact: { title: "Have a project?", text: "Tell us what you want to capture, measure or create.", phone: "+359 892 061 977", email: "contact@airpropix.com" },
+  contact: { title: "Have a project?", text: "Tell us what you want to capture, measure or create. We are based in Sofia and work on projects throughout Bulgaria, and abroad when needed.", phone: "+359 892 061 977", email: "contact@airpropix.com" },
   social: { label: "Follow us", handle: "@airpropix" },
   form: {
     name: "Name", email: "Email", phone: "Phone", company: "Company", optional: "optional", type: "Project type",
@@ -363,7 +346,7 @@ const en: Content = {
     captcha: "Please confirm you are not a robot.", required: "Required field.", invalidEmail: "Invalid email address.",
     notConfigured: "The form is temporarily inactive. Please contact us by phone or email.",
   },
-  footer: { tagline: "Capture. Map. Model. Make.", rights: "All rights reserved.", follow: "Follow us" },
+  footer: { rights: "All rights reserved.", follow: "Follow us" },
   problemWord: "Problem",
 };
 
