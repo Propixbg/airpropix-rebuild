@@ -47,13 +47,6 @@ export function SitePage({ lang }: { lang: Lang }) {
         {/* HERO */}
         <section id="top" className="relative overflow-hidden pt-28 md:pt-32">
           <div className="container-x relative">
-            <p className="animate-rise grid" aria-label={t.idea.words.join(", ")}>
-              {t.idea.words.map((w, i) => (
-                <span key={w} aria-hidden className="word-cycle col-start-1 row-start-1 font-mono text-xs uppercase tracking-[0.3em] text-slate md:text-sm" style={{ animationDelay: `${i * 2}s` }}>
-                  {w}
-                </span>
-              ))}
-            </p>
             <h1 className="animate-rise mt-6 max-w-5xl text-[2.4rem] leading-[1.02] sm:text-6xl lg:text-7xl">
               {t.hero.line1}
               <br />
@@ -93,6 +86,13 @@ export function SitePage({ lang }: { lang: Lang }) {
               <h2 id="idea-h" className="text-3xl md:col-span-7 md:text-5xl">{t.idea.statement}</h2>
               <p className="text-lg text-muted-foreground md:col-span-5">{t.idea.text}</p>
             </div>
+            <p className="mt-10 grid text-center" aria-label={t.idea.words.join(", ")}>
+              {t.idea.words.map((w, i) => (
+                <span key={w} aria-hidden className="word-cycle col-start-1 row-start-1 font-mono text-2xl uppercase tracking-[0.3em] text-slate" style={{ animationDelay: `${i * 2}s` }}>
+                  {w}
+                </span>
+              ))}
+            </p>
           </div>
         </section>
 
