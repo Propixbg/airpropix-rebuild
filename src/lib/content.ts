@@ -21,7 +21,7 @@ export type Content = {
   about: { label: string; title: string; text: string; points: string[] };
   contact: { title: string; text: string; phone: string; email: string };
   social: { label: string; handle: string };
-  form: { name: string; email: string; phone: string; company: string; optional: string; type: string; types: { photo: string; mapping: string; d3: string; other: string }; message: string; submit: string; sending: string; success: string; error: string; captcha: string; required: string; invalidEmail: string; notConfigured: string };
+  form: { name: string; email: string; phone: string; company: string; optional: string; type: string; types: { photo: string; mapping: string; d3: string; other: string }; message: string; submit: string; sending: string; success: string; mailSubject: string; error: string; captcha: string; required: string; invalidEmail: string; notConfigured: string };
   footer: { rights: string; follow: string };
   problemWord: string;
 };
@@ -39,7 +39,7 @@ const bg: Content = {
   hero: {
     eyebrow: "Идея. Възможност. Реалност. Резултат.",
     line1: "Заснемаме реалността.",
-    line2: "Фото, видео, дрон картографиране и 3D печат в София и цяла България.",
+    line2: "Превръщаме я в нещо повече.",
     text: "От професионално визуално съдържание до пространствени данни и 3D решения — превръщаме реалните проекти в нещо, което можете да видите, разберете и използвате.",
     tags: ["Фото и видео", "Картографиране", "3D"],
     cta: "Започнете проект",
@@ -179,7 +179,8 @@ const bg: Content = {
     name: "Име", email: "Имейл", phone: "Телефон", company: "Компания", optional: "по избор", type: "Тип проект",
     types: { photo: "Фото и видео", mapping: "Картографиране", d3: "3D", other: "Друго" },
     message: "Съобщение", submit: "Изпратете запитване", sending: "Изпращане…",
-    success: "Благодарим Ви. Вашето запитване беше изпратено.",
+    success: "Благодарим ви! Вашето запитване беше изпратено успешно. Ще се свържем с вас възможно най-скоро.",
+    mailSubject: "Ново запитване от сайта - AirProPix",
     error: "Възникна грешка при изпращането. Моля, опитайте отново или ни пишете на contact@airpropix.com.",
     captcha: "Моля, потвърдете, че не сте робот.", required: "Задължително поле.", invalidEmail: "Невалиден имейл адрес.",
     notConfigured: "Формата временно не е активна. Моля, свържете се с нас по телефон или имейл.",
@@ -201,7 +202,7 @@ const en: Content = {
   hero: {
     eyebrow: "Idea. Possibility. Reality. Result.",
     line1: "We capture reality.",
-    line2: "Photo, video, drone mapping and 3D printing in Sofia and across Bulgaria.",
+    line2: "We turn it into something more.",
     text: "From professional visual content to spatial data and 3D solutions — we turn real projects into something you can see, understand and use.",
     tags: ["Photo & Video", "Mapping", "3D"],
     cta: "Start a project",
@@ -341,7 +342,8 @@ const en: Content = {
     name: "Name", email: "Email", phone: "Phone", company: "Company", optional: "optional", type: "Project type",
     types: { photo: "Photo & Video", mapping: "Mapping", d3: "3D", other: "Other" },
     message: "Message", submit: "Send inquiry", sending: "Sending…",
-    success: "Thank you. Your inquiry has been sent.",
+    success: "Thank you! Your inquiry has been sent successfully. We will get back to you as soon as possible.",
+    mailSubject: "New inquiry from website - AirProPix",
     error: "Something went wrong. Please try again or email contact@airpropix.com.",
     captcha: "Please confirm you are not a robot.", required: "Required field.", invalidEmail: "Invalid email address.",
     notConfigured: "The form is temporarily inactive. Please contact us by phone or email.",
