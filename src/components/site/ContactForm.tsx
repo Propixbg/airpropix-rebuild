@@ -69,19 +69,8 @@ export function ContactForm({ t, lang }: { t: Content; lang: Lang }) {
     setErrors(errs);
     if (Object.keys(errs).length) return;
     if (!cfg?.enabled) {
-      const typeLabel = v.projectType === "mapping" ? f.types.mapping : v.projectType === "3d" ? f.types.d3 : v.projectType === "other" ? f.types.other : f.types.photo;
-      const body = [
-        `${f.name}: ${v.name}`,
-        `${f.email}: ${v.email}`,
-        `${f.phone}: ${v.phone}`,
-        `${f.company}: ${v.company || "—"}`,
-        `${f.type}: ${typeLabel}`,
-        "",
-        `${f.message}:`,
-        v.message,
-      ].join("\n");
-      window.location.href = `mailto:contact@airpropix.com?subject=${encodeURIComponent(f.mailSubject)}&body=${encodeURIComponent(body)}`;
-      setStatus("success");
+      setStatus("error");
+      setMsg(f.error);
       return;
     }
     setStatus("sending");
