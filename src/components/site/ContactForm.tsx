@@ -56,7 +56,8 @@ export function ContactForm({ t, lang }: { t: Content; lang: Lang }) {
 
   async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    const fd = new FormData(e.currentTarget);
+    const form = e.currentTarget;
+    const fd = new FormData(form);
     const v = Object.fromEntries(fd.entries()) as unknown as Vals;
     if (String(fd.get("website") ?? "").trim()) {
       setStatus("success");
@@ -83,10 +84,10 @@ export function ContactForm({ t, lang }: { t: Content; lang: Lang }) {
       });
       if (r.ok) {
         setStatus("success");
-        e.currentTarget?.reset?.();
+        form.reset();
       } else {
         setStatus("error");
-        setMsg(r.reason === "captcha" ? f.captcha : r.reason === "not_configured" ? f.notConfigured : f.error);
+        setMsg(r.reason === "captcha" ? f.captcha : f.error);
         window.turnstile?.reset(widgetId.current);
         setToken("");
       }
