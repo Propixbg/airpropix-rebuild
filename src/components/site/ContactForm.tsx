@@ -59,10 +59,6 @@ export function ContactForm({ t, lang }: { t: Content; lang: Lang }) {
     const form = e.currentTarget;
     const fd = new FormData(form);
     const v = Object.fromEntries(fd.entries()) as unknown as Vals;
-    if (String(fd.get("website") ?? "").trim()) {
-      setStatus("success");
-      return;
-    }
     const errs: Partial<Record<FKey, string>> = {};
     for (const k of ["name", "email", "phone", "message"] as const) if (!v[k]?.trim()) errs[k] = f.required;
     if (v.email && !/^\S+@\S+\.\S+$/.test(v.email)) errs.email = f.invalidEmail;
@@ -122,10 +118,6 @@ export function ContactForm({ t, lang }: { t: Content; lang: Lang }) {
 
   return (
     <form noValidate onSubmit={onSubmit} className="grid gap-5 rounded-xl border bg-card p-6 md:p-8">
-      <div aria-hidden="true" className="absolute -left-[9999px] h-px w-px overflow-hidden">
-        <label htmlFor="f-website">Website</label>
-        <input id="f-website" name="website" type="text" tabIndex={-1} autoComplete="off" />
-      </div>
       <div className="grid gap-5 sm:grid-cols-2">
         {field("name", f.name, "text", true, "name")}
         {field("email", f.email, "email", true, "email")}
