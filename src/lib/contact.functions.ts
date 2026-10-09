@@ -60,7 +60,7 @@ export const sendInquiry = createServerFn({ method: "POST" })
         from: process.env["RESEND_FROM"] ?? "AirProPix Website <website@airpropix.com>",
         to: [process.env["CONTACT_TO"] ?? "contact@airpropix.com"],
         reply_to: data.email,
-        subject: "New AirProPix Website Inquiry",
+        subject: `New Inquiry from ${data.name} (${types[data.projectType]})`,
         html,
         text,
       }),
