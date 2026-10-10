@@ -2,11 +2,24 @@ import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
 
 export const getContactConfig = createServerFn({ method: "GET" }).handler(async () => {
+  const siteKey = process.env["TURNSTILE_SITE_KEY"] ?? null;
+  const secret = process.env["TURNSTILE_SECRET_KEY"] ?? null;
+  const resend = process.env["RESEND_API_KEY"] ?? null;
+
+  console.log("[contact] ENV CHECK", {
+    hasSiteKey: !!siteKey,
+    hasSecret: !!secret,
+    hasResend: !!resend,
+  });
+
   return {
-    siteKey: process.env["TURNSTILE_SITE_KEY"] ?? null,
-    enabled: Boolean(
-      process.env["TURNSTILE_SITE_KEY"] && process.env["TURNSTILE_SECRET_KEY"] && process.env["RESEND_API_KEY"],
-    ),
+    siteKey,
+    enabled: Boolean(siteKey && secret && resend),
+    debug: {
+      hasSiteKey: !!siteKey,
+      hasSecret: !!secret,
+      hasResend: !!resend,
+    },
   };
 });
 
