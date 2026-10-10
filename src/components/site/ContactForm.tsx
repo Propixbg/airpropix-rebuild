@@ -67,7 +67,7 @@ export function ContactForm({ t, lang }: { t: Content; lang: Lang }) {
     if (Object.keys(errs).length) return;
     if (!cfg?.enabled) {
       setStatus("error");
-      setMsg(f.error);
+      setMsg(`${f.error} (Missing Environment Variables)`);
       return;
     }
     setStatus("sending");
@@ -78,18 +78,21 @@ export function ContactForm({ t, lang }: { t: Content; lang: Lang }) {
           projectType: v.projectType as "photo", message: v.message, lang, token,
         },
       });
-      if (r.ok) {
+      if (r.success) {
         setStatus("success");
         form.reset();
+        window.turnstile?.reset(widgetId.current);
+        setToken("");
       } else {
+        const d = r.details === undefined ? "" : typeof r.details === "string" ? r.details : JSON.stringify(r.details);
         setStatus("error");
-        setMsg(r.reason === "captcha" ? f.captcha : f.error);
+        setMsg(`${f.error} [${r.status}] ${r.error}${d ? `: ${d}` : ""}`);
         window.turnstile?.reset(widgetId.current);
         setToken("");
       }
-    } catch {
+    } catch (err) {
       setStatus("error");
-      setMsg(f.error);
+      setMsg(`${f.error} ${err instanceof Error ? err.message : String(err)}`);
     }
   }
 

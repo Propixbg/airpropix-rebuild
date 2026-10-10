@@ -1,7 +1,6 @@
 import type React from "react";
 import { useState } from "react";
 import { ArrowRight, ArrowUpRight, Phone, Mail, Instagram, Facebook, Youtube } from "lucide-react";
-import logo from "@/assets/airpropix-logo.png.asset.json";
 import { content, type Lang } from "@/lib/content";
 import { img, type ImgKey } from "@/lib/images";
 import { Header } from "./Header";
@@ -364,7 +363,7 @@ export function SitePage({ lang }: { lang: Lang }) {
       <footer className="border-t py-12">
         <div className="container-x flex flex-col gap-8 md:flex-row md:items-center md:justify-between">
           <div>
-            <img src={logo.url} alt="AirProPix" width={690} height={137} loading="lazy" className="h-6 w-auto" />
+            <img src="/logo.png" alt="AirProPix" width={1920} height={400} loading="lazy" className="h-6 w-auto" />
           </div>
           <div className="flex flex-col gap-2 text-sm md:items-end">
             
