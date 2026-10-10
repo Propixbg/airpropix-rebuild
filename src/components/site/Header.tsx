@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link } from "@tanstack/react-router";
 import { ChevronDown, Menu, X } from "lucide-react";
-import logo from "@/assets/airpropix-logo.png.asset.json";
 import type { Content, Lang } from "@/lib/content";
 
 export function Header({ t, lang }: { t: Content; lang: Lang }) {
