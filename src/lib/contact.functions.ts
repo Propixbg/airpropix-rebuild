@@ -39,10 +39,21 @@ export const sendInquiry = createServerFn({ method: "POST" })
     const secret = process.env["TURNSTILE_SECRET_KEY"];
     const resendKey = process.env["RESEND_API_KEY"];
     if (!secret || !resendKey) {
-      const missing = [!resendKey && "RESEND_API_KEY", !secret && "TURNSTILE_SECRET_KEY"].filter(Boolean);
-      console.error("[contact] Missing Environment Variables", missing);
-      return fail(500, "Missing Environment Variables", missing);
-    }
+  const missing = [
+    !process.env["TURNSTILE_SITE_KEY"] && "TURNSTILE_SITE_KEY",
+    !secret && "TURNSTILE_SECRET_KEY",
+    !resendKey && "RESEND_API_KEY",
+  ].filter(Boolean);
+
+  console.error("[contact] Missing Environment Variables", {
+    missing,
+    hasSiteKey: !!process.env["TURNSTILE_SITE_KEY"],
+    hasSecret: !!secret,
+    hasResend: !!resendKey,
+  });
+
+  return fail(500, "Missing Environment Variables", missing.join(", "));
+}
 
     // Step 2: Turnstile verification
     let turnstileResult: { success: boolean; "error-codes"?: string[] } & Record<string, unknown>;
