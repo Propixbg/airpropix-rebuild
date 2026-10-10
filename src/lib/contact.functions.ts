@@ -57,7 +57,7 @@ export const sendInquiry = createServerFn({ method: "POST" })
       method: "POST",
       headers: { Authorization: `Bearer ${resendKey}`, "Content-Type": "application/json" },
       body: JSON.stringify({
-        from: process.env["RESEND_FROM"] ?? "AirProPix Website <website@airpropix.com>",
+        from: process.env["RESEND_FROM"] ?? "Air Pro Pix <noreply@airpropix.com>",
         to: [process.env["CONTACT_TO"] ?? "contact@airpropix.com"],
         reply_to: data.email,
         subject: `New Inquiry from ${data.name} (${types[data.projectType]})`,

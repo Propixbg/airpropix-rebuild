@@ -35,9 +35,9 @@ export function Header({ t, lang }: { t: Content; lang: Lang }) {
       }`}
     >
       <div className="container-x flex h-16 items-center justify-between gap-6">
-        <a href="#top" className="shrink-0" aria-label="AirProPix">
-          <img src={logo.url} alt="AirProPix" width={690} height={137} className="h-6 w-auto md:h-7" />
-        </a>
+        <Link to="/$lang" params={{ lang }} className="shrink-0" aria-label="AirProPix">
+          <img src="/logo.png" alt="AirProPix" width={1920} height={400} className="h-6 w-auto md:h-7" />
+        </Link>
         <nav aria-label="Main" className="hidden items-center gap-6 xl:flex">
           {links.slice(1).map(([href, label]) => {
             const key = href === "#photo" ? "photo" : href === "#mapping" ? "mapping" : href === "#3d" ? "d3" : null;
