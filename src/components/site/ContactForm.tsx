@@ -84,7 +84,7 @@ export function ContactForm({ t, lang }: { t: Content; lang: Lang }) {
         window.turnstile?.reset(widgetId.current);
         setToken("");
       } else {
-        const d = r.details === undefined ? "" : typeof r.details === "string" ? r.details : JSON.stringify(r.details);
+        const d = r.details ?? "";
         setStatus("error");
         setMsg(`${f.error} [${r.status}] ${r.error}${d ? `: ${d}` : ""}`);
         window.turnstile?.reset(widgetId.current);

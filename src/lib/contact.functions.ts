@@ -24,16 +24,24 @@ const schema = z.object({
 const esc = (s: string) =>
   s.replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]!);
 
+type Result = { success: boolean; status: number; error?: string; details?: string };
+const fail = (status: number, error: string, details: unknown): Result => ({
+  success: false,
+  status,
+  error,
+  details: typeof details === "string" ? details : JSON.stringify(details),
+});
+
 export const sendInquiry = createServerFn({ method: "POST" })
   .inputValidator((d: unknown) => schema.parse(d))
-  .handler(async ({ data }) => {
+  .handler(async ({ data }): Promise<Result> => {
     // Step 1: environment variables
     const secret = process.env["TURNSTILE_SECRET_KEY"];
     const resendKey = process.env["RESEND_API_KEY"];
     if (!secret || !resendKey) {
       const missing = [!resendKey && "RESEND_API_KEY", !secret && "TURNSTILE_SECRET_KEY"].filter(Boolean);
       console.error("[contact] Missing Environment Variables", missing);
-      return { success: false as const, status: 500, error: "Missing Environment Variables", details: missing as unknown };
+      return fail(500, "Missing Environment Variables", missing);
     }
 
     // Step 2: Turnstile verification
@@ -47,11 +55,11 @@ export const sendInquiry = createServerFn({ method: "POST" })
       turnstileResult = await verify.json();
     } catch (e) {
       console.error("[contact] Turnstile request failed", e);
-      return { success: false as const, status: 502, error: "Turnstile verification failed", details: String(e) as unknown };
+      return fail(502, "Turnstile verification failed", String(e));
     }
     if (!turnstileResult.success) {
       console.error("[contact] Turnstile verification failed", turnstileResult);
-      return { success: false as const, status: 403, error: "Turnstile verification failed", details: turnstileResult as unknown };
+      return fail(403, "Turnstile verification failed", turnstileResult);
     }
 
     // Step 3: Resend
@@ -85,14 +93,14 @@ export const sendInquiry = createServerFn({ method: "POST" })
       });
     } catch (e) {
       console.error("[contact] Resend request failed", e);
-      return { success: false as const, status: 502, error: "Resend API Error", details: String(e) as unknown };
+      return fail(502, "Resend API Error", String(e));
     }
     if (!res.ok) {
       const raw = await res.text();
       let resendError: unknown = raw;
       try { resendError = JSON.parse(raw); } catch { /* keep text */ }
       console.error("[contact] Resend API Error", res.status, resendError);
-      return { success: false as const, status: res.status, error: "Resend API Error", details: resendError };
+      return fail(res.status, "Resend API Error", resendError);
     }
-    return { success: true as const, status: 200 };
+    return { success: true, status: 200 } as Result;
   });
