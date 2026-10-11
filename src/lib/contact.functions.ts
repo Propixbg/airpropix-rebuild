@@ -1,11 +1,10 @@
 import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
-import { env } from "cloudflare:workers";
 
 export const getContactConfig = createServerFn({ method: "GET" }).handler(async () => {
-  const siteKey = env.TURNSTILE_SITE_KEY ?? null;
-  const secret = env.TURNSTILE_SECRET_KEY ?? null;
-  const resend = env.RESEND_API_KEY ?? null;
+  const siteKey = process.env["TURNSTILE_SITE_KEY"] ?? null;
+  const secret = process.env["TURNSTILE_SECRET_KEY"] ?? null;
+  const resend = process.env["RESEND_API_KEY"] ?? null;
 
   console.log("[contact] ENV CHECK", {
     hasSiteKey: !!siteKey,
@@ -50,24 +49,24 @@ export const sendInquiry = createServerFn({ method: "POST" })
   .inputValidator((d: unknown) => schema.parse(d))
   .handler(async ({ data }): Promise<Result> => {
     // Step 1: environment variables
-    const secret = env.TURNSTILE_SECRET_KEY;
-    const resendKey = env.RESEND_API_KEY;
+    const secret = process.env["TURNSTILE_SECRET_KEY"];
+    const resendKey = process.env["RESEND_API_KEY"];
     if (!secret || !resendKey) {
-      const missing = [
-        !env.TURNSTILE_SITE_KEY && "TURNSTILE_SITE_KEY",
-        !secret && "TURNSTILE_SECRET_KEY",
-        !resendKey && "RESEND_API_KEY",
-      ].filter(Boolean);
+  const missing = [
+    !process.env["TURNSTILE_SITE_KEY"] && "TURNSTILE_SITE_KEY",
+    !secret && "TURNSTILE_SECRET_KEY",
+    !resendKey && "RESEND_API_KEY",
+  ].filter(Boolean);
 
-      console.error("[contact] Missing Environment Variables", {
-        missing,
-        hasSiteKey: !!env.TURNSTILE_SITE_KEY,
-        hasSecret: !!secret,
-        hasResend: !!resendKey,
-      });
+  console.error("[contact] Missing Environment Variables", {
+    missing,
+    hasSiteKey: !!process.env["TURNSTILE_SITE_KEY"],
+    hasSecret: !!secret,
+    hasResend: !!resendKey,
+  });
 
-      return fail(500, "Missing Environment Variables", missing.join(", "));
-    }
+  return fail(500, "Missing Environment Variables", missing.join(", "));
+}
 
     // Step 2: Turnstile verification
     let turnstileResult: { success: boolean; "error-codes"?: string[] } & Record<string, unknown>;
@@ -128,4 +127,4 @@ export const sendInquiry = createServerFn({ method: "POST" })
       return fail(res.status, "Resend API Error", resendError);
     }
     return { success: true, status: 200 } as Result;
-  });   
+  });
