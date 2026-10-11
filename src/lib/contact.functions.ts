@@ -7,13 +7,15 @@ type EnvBindings = {
   RESEND_API_KEY?: string;
 };
 
-// Надеждно извличане на ключовете от process.env
+// Функция за сигурно четене на променливите в Cloudflare / Node среда
 function getBindings(): EnvBindings {
-  const envSource = (typeof process !== "undefined" && process.env) ? process.env : {};
+  // В Cloudflare Pages / Workers променливите често са достъпни през глобалния контекст или process.env
+  const cfEnv = (globalThis as any)?.__env__ || (typeof process !== "undefined" ? process.env : {});
+  
   return {
-    TURNSTILE_SITE_KEY: envSource.TURNSTILE_SITE_KEY || envSource.VITE_TURNSTILE_SITE_KEY,
-    TURNSTILE_SECRET_KEY: envSource.TURNSTILE_SECRET_KEY,
-    RESEND_API_KEY: envSource.RESEND_API_KEY,
+    TURNSTILE_SITE_KEY: cfEnv.TURNSTILE_SITE_KEY || cfEnv.VITE_TURNSTILE_SITE_KEY,
+    TURNSTILE_SECRET_KEY: cfEnv.TURNSTILE_SECRET_KEY,
+    RESEND_API_KEY: cfEnv.RESEND_API_KEY,
   };
 }
 
