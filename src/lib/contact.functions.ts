@@ -1,5 +1,4 @@
 import { createServerFn } from "@tanstack/react-start";
-import { env } from "cloudflare:workers";
 import { z } from "zod";
 
 type EnvBindings = {
@@ -16,9 +15,9 @@ export const getContactConfig = createServerFn({ method: "GET" }).handler(
   async () => {
     const bindings = getBindings();
 
-    const siteKey = bindings.TURNSTILE_SITE_KEY ?? null;
-    const secret = bindings.TURNSTILE_SECRET_KEY;
-    const resend = bindings.RESEND_API_KEY;
+    const siteKey = process.env["TURNSTILE_SITE_KEY"];
+    const secret = process.env["TURNSTILE_SECRET_KEY"];
+    const resend = process.env["RESEND_API_KEY"];
 
     console.log("[contact] ENV CHECK", {
       hasSiteKey: Boolean(siteKey),
