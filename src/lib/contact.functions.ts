@@ -1,4 +1,5 @@
 import { createServerFn } from "@tanstack/react-start";
+import { getWebRequest } from "@tanstack/react-start/server";
 import { z } from "zod";
 
 type EnvBindings = {
@@ -7,8 +8,20 @@ type EnvBindings = {
   RESEND_API_KEY?: string;
 };
 
-// Надеждно извличане на ключовете от process.env без да гръмва
+// Надеждно извличане на ключовете директно от Cloudflare Worker контекста или process.env
 function getBindings(): EnvBindings {
+  try {
+    const request = getWebRequest();
+    // Проверяваме дали Cloudflare предава env през контекста на заявката
+    const cfEnv = (request as any)?.env || (globalThis as any)?.__env__;
+    if (cfEnv && (cfEnv.TURNSTILE_SECRET_KEY || cfEnv.RESEND_API_KEY)) {
+      return cfEnv;
+    }
+  } catch {
+    // игнорираме грешката при липсващ уеб контекст
+  }
+
+  // Fallback към process.env ако всичко друго е празно
   const envSource = (typeof process !== "undefined" && process.env) ? process.env : {};
   return {
     TURNSTILE_SITE_KEY: envSource.TURNSTILE_SITE_KEY || envSource.VITE_TURNSTILE_SITE_KEY,
