@@ -7,17 +7,23 @@ type EnvBindings = {
   RESEND_API_KEY?: string;
 };
 
+// Надеждно извличане на ключовете от process.env без да гръмва
 function getBindings(): EnvBindings {
-  return env as unknown as EnvBindings;
+  const envSource = (typeof process !== "undefined" && process.env) ? process.env : {};
+  return {
+    TURNSTILE_SITE_KEY: envSource.TURNSTILE_SITE_KEY || envSource.VITE_TURNSTILE_SITE_KEY,
+    TURNSTILE_SECRET_KEY: envSource.TURNSTILE_SECRET_KEY,
+    RESEND_API_KEY: envSource.RESEND_API_KEY,
+  };
 }
 
 export const getContactConfig = createServerFn({ method: "GET" }).handler(
   async () => {
     const bindings = getBindings();
 
-    const siteKey = process.env["TURNSTILE_SITE_KEY"];
-    const secret = process.env["TURNSTILE_SECRET_KEY"];
-    const resend = process.env["RESEND_API_KEY"];
+    const siteKey = bindings.TURNSTILE_SITE_KEY;
+    const secret = bindings.TURNSTILE_SECRET_KEY;
+    const resend = bindings.RESEND_API_KEY;
 
     console.log("[contact] ENV CHECK", {
       hasSiteKey: Boolean(siteKey),
@@ -78,7 +84,7 @@ const fail = (
 export const sendInquiry = createServerFn({ method: "POST" })
   .inputValidator((d: unknown) => schema.parse(d))
   .handler(async ({ data }): Promise<Result> => {
-    // Step 1: Read Cloudflare Worker bindings
+    // Step 1: Read bindings safely
     const bindings = getBindings();
     const siteKey = bindings.TURNSTILE_SITE_KEY;
     const secret = bindings.TURNSTILE_SECRET_KEY;
