@@ -1,27 +1,37 @@
 import { createServerFn } from "@tanstack/react-start";
+import { env } from "cloudflare:workers";
 import { z } from "zod";
 
-export const getContactConfig = createServerFn({ method: "GET" }).handler(async () => {
-  const siteKey = process.env["TURNSTILE_SITE_KEY"] ?? null;
-  const secret = process.env["TURNSTILE_SECRET_KEY"] ?? null;
-  const resend = process.env["RESEND_API_KEY"] ?? null;
+type EnvBindings = {
+  TURNSTILE_SITE_KEY?: string;
+  TURNSTILE_SECRET_KEY?: string;
+  RESEND_API_KEY?: string;
+};
 
-  console.log("[contact] ENV CHECK", {
-    hasSiteKey: !!siteKey,
-    hasSecret: !!secret,
-    hasResend: !!resend,
-  });
+function getBindings(): EnvBindings {
+  return env as unknown as EnvBindings;
+}
 
-  return {
-    siteKey,
-    enabled: Boolean(siteKey && secret && resend),
-    debug: {
-      hasSiteKey: !!siteKey,
-      hasSecret: !!secret,
-      hasResend: !!resend,
-    },
-  };
-});
+export const getContactConfig = createServerFn({ method: "GET" }).handler(
+  async () => {
+    const bindings = getBindings();
+
+    const siteKey = bindings.TURNSTILE_SITE_KEY ?? null;
+    const secret = bindings.TURNSTILE_SECRET_KEY;
+    const resend = bindings.RESEND_API_KEY;
+
+    console.log("[contact] ENV CHECK", {
+      hasSiteKey: Boolean(siteKey),
+      hasSecret: Boolean(secret),
+      hasResend: Boolean(resend),
+    });
+
+    return {
+      siteKey,
+      enabled: Boolean(siteKey && secret && resend),
+    };
+  },
+);
 
 const schema = z.object({
   name: z.string().trim().min(1).max(120),
@@ -35,59 +45,115 @@ const schema = z.object({
 });
 
 const esc = (s: string) =>
-  s.replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]!);
+  s.replace(
+    /[&<>"']/g,
+    (c) =>
+      ({
+        "&": "&amp;",
+        "<": "&lt;",
+        ">": "&gt;",
+        '"': "&quot;",
+        "'": "&#39;",
+      })[c]!,
+  );
 
-type Result = { success: boolean; status: number; error?: string; details?: string };
-const fail = (status: number, error: string, details: unknown): Result => ({
+type Result = {
+  success: boolean;
+  status: number;
+  error?: string;
+  details?: string;
+};
+
+const fail = (
+  status: number,
+  error: string,
+  details: unknown,
+): Result => ({
   success: false,
   status,
   error,
-  details: typeof details === "string" ? details : JSON.stringify(details),
+  details:
+    typeof details === "string" ? details : JSON.stringify(details),
 });
 
 export const sendInquiry = createServerFn({ method: "POST" })
   .inputValidator((d: unknown) => schema.parse(d))
   .handler(async ({ data }): Promise<Result> => {
-    // Step 1: environment variables
-    const secret = process.env["TURNSTILE_SECRET_KEY"];
-    const resendKey = process.env["RESEND_API_KEY"];
-    if (!secret || !resendKey) {
-  const missing = [
-    !process.env["TURNSTILE_SITE_KEY"] && "TURNSTILE_SITE_KEY",
-    !secret && "TURNSTILE_SECRET_KEY",
-    !resendKey && "RESEND_API_KEY",
-  ].filter(Boolean);
+    // Step 1: Read Cloudflare Worker bindings
+    const bindings = getBindings();
+    const siteKey = bindings.TURNSTILE_SITE_KEY;
+    const secret = bindings.TURNSTILE_SECRET_KEY;
+    const resendKey = bindings.RESEND_API_KEY;
 
-  console.error("[contact] Missing Environment Variables", {
-    missing,
-    hasSiteKey: !!process.env["TURNSTILE_SITE_KEY"],
-    hasSecret: !!secret,
-    hasResend: !!resendKey,
-  });
+    if (!siteKey || !secret || !resendKey) {
+      const missing = [
+        !siteKey && "TURNSTILE_SITE_KEY",
+        !secret && "TURNSTILE_SECRET_KEY",
+        !resendKey && "RESEND_API_KEY",
+      ].filter(Boolean);
 
-  return fail(500, "Missing Environment Variables", missing.join(", "));
-}
-
-    // Step 2: Turnstile verification
-    let turnstileResult: { success: boolean; "error-codes"?: string[] } & Record<string, unknown>;
-    try {
-      const verify = await fetch("https://challenges.cloudflare.com/turnstile/v0/siteverify", {
-        method: "POST",
-        headers: { "Content-Type": "application/x-www-form-urlencoded" },
-        body: new URLSearchParams({ secret, response: data.token }),
+      console.error("[contact] Missing Environment Variables", {
+        missing,
+        hasSiteKey: Boolean(siteKey),
+        hasSecret: Boolean(secret),
+        hasResend: Boolean(resendKey),
       });
+
+      return fail(
+        500,
+        "Missing Environment Variables",
+        missing.join(", "),
+      );
+    }
+
+    // Step 2: Verify Cloudflare Turnstile
+    let turnstileResult: {
+      success: boolean;
+      "error-codes"?: string[];
+    } & Record<string, unknown>;
+
+    try {
+      const verify = await fetch(
+        "https://challenges.cloudflare.com/turnstile/v0/siteverify",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+          },
+          body: new URLSearchParams({
+            secret,
+            response: data.token,
+          }),
+        },
+      );
+
       turnstileResult = await verify.json();
     } catch (e) {
       console.error("[contact] Turnstile request failed", e);
       return fail(502, "Turnstile verification failed", String(e));
     }
+
     if (!turnstileResult.success) {
-      console.error("[contact] Turnstile verification failed", turnstileResult);
-      return fail(403, "Turnstile verification failed", turnstileResult);
+      console.error(
+        "[contact] Turnstile verification failed",
+        turnstileResult,
+      );
+
+      return fail(
+        403,
+        "Turnstile verification failed",
+        turnstileResult,
+      );
     }
 
-    // Step 3: Resend
-    const types = { photo: "Photo & Video", mapping: "Mapping", "3d": "3D", other: "Other" };
+    // Step 3: Prepare the email
+    const types: Record<string, string> = {
+      photo: "Photo & Video",
+      mapping: "Mapping",
+      "3d": "3D",
+      other: "Other",
+    };
+
     const rows: [string, string][] = [
       ["Name", data.name],
       ["Email", data.email],
@@ -96,16 +162,28 @@ export const sendInquiry = createServerFn({ method: "POST" })
       ["Project type", types[data.projectType]],
       ["Language", data.lang.toUpperCase()],
     ];
-    const html = `<h2>New AirProPix Website Inquiry</h2><table>${rows
-      .map(([k, val]) => `<tr><td><b>${k}</b></td><td>${esc(val)}</td></tr>`)
-      .join("")}</table><p><b>Message</b></p><p style="white-space:pre-wrap">${esc(data.message)}</p>`;
-    const text = rows.map(([k, val]) => `${k}: ${val}`).join("\n") + `\n\nMessage:\n${data.message}`;
 
+    const html = `<h2>New AirProPix Website Inquiry</h2><table>${rows
+      .map(
+        ([k, val]) =>
+          `<tr><td><b>${k}</b></td><td>${esc(val)}</td></tr>`,
+      )
+      .join("")}</table><p><b>Message</b></p><p style="white-space:pre-wrap">${esc(data.message)}</p>`;
+
+    const text =
+      rows.map(([k, val]) => `${k}: ${val}`).join("\n") +
+      `\n\nMessage:\n${data.message}`;
+
+    // Step 4: Send email through Resend
     let res: Response;
+
     try {
       res = await fetch("https://api.resend.com/emails", {
         method: "POST",
-        headers: { Authorization: `Bearer ${resendKey}`, "Content-Type": "application/json" },
+        headers: {
+          Authorization: `Bearer ${resendKey}`,
+          "Content-Type": "application/json",
+        },
         body: JSON.stringify({
           from: "AirProPix Contact <noreply@airpropix.com>",
           to: ["contact@airpropix.com"],
@@ -119,12 +197,25 @@ export const sendInquiry = createServerFn({ method: "POST" })
       console.error("[contact] Resend request failed", e);
       return fail(502, "Resend API Error", String(e));
     }
+
     if (!res.ok) {
       const raw = await res.text();
       let resendError: unknown = raw;
-      try { resendError = JSON.parse(raw); } catch { /* keep text */ }
-      console.error("[contact] Resend API Error", res.status, resendError);
+
+      try {
+        resendError = JSON.parse(raw);
+      } catch {
+        // Keep the original response text
+      }
+
+      console.error(
+        "[contact] Resend API Error",
+        res.status,
+        resendError,
+      );
+
       return fail(res.status, "Resend API Error", resendError);
     }
-    return { success: true, status: 200 } as Result;
+
+    return { success: true, status: 200 };
   });
